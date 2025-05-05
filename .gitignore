@@ -1,0 +1,7 @@
+ch*
+MNIST
+*output*
+__pycache__
+test_any.py
+dataset.pkl
+.DS_Store
