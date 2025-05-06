@@ -1,11 +1,11 @@
 import numpy as np
 import pickle
 import gzip
-import os
+from pathlib import Path
 
 pickle_path = "./"
 pickle_name = "dataset.pkl"
-data_dir = "./mnist_test_data"
+data_dir = "./dataset/mnist_test_data"
 IMG_SIZE = 784
 
 file = {
@@ -16,7 +16,8 @@ file = {
 }
 
 def _load_img(file_name):
-    file_path = os.path.abspath(file_name)
+    folder = Path(data_dir)
+    file_path = folder / file_name
     with gzip.open(file_path, "rb") as f:
         data = np.frombuffer(f.read(), np.uint8, offset=16)
     data = data.reshape(-1, IMG_SIZE)
@@ -42,7 +43,7 @@ def _convert_numpy():
 def _change_one_hot_label(X):
     T = np.zeros((X.size, 10))
     for idx, arr in enumerate(T):
-        arr[X(idx)] = 1
+        arr[X[idx]] = 1
         
     return T
 
