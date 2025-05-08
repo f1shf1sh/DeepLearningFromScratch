@@ -1,5 +1,7 @@
 import numpy as np
 import pickle
+import sys, os
+sys.path.append(os.pardir)
 from dataset.mnist import load_mnist
 
 w_file_path = "./sample_weight.pkl"
