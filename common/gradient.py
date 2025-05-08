@@ -21,8 +21,7 @@ def numerical_gradient(f, x):
     """
     h = 1e-4
     grad = np.zeros_like(x)
-    
-    for idx in range(x.size):
+    for idx in range(x.shape[0]):
         tmp_val = x[idx]
         x[idx] = tmp_val + h
         fx0 = f(x)
@@ -57,7 +56,7 @@ def gradient_descent(f, init_x, lr = 0.01, step_num = 100):
 
 if __name__ == "__main__":
     init_x = np.array([3.0, 4.0])
-    x, x_history = gradient_descent(func_2, init_x = init_x, lr = 0.035, step_num = 100)
+    x, x_history = gradient_descent(func_2, init_x = init_x, lr = 0.1, step_num = 100)
     print(x_history)    
     plt.plot( [-5, 5], [0,0], '--b')
     plt.plot( [0,0], [-5, 5], '--b')

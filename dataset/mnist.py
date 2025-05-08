@@ -53,7 +53,7 @@ def init_mnist():
     with open(file_path, "wb") as f:
         pickle.dump(dataset, f, -1) 
     
-def load_mnist(normlize = True, flatten = True, one_hot_label = False):
+def load_mnist(normalize = True, flatten = True, one_hot_label = False):
     """_summary_
 
     Args:
@@ -70,7 +70,7 @@ def load_mnist(normlize = True, flatten = True, one_hot_label = False):
     with open(file_path, "rb") as f:
         dataset = pickle.load(f)
 
-    if normlize:
+    if normalize:
         for key in ("train_img", "test_img"):
             dataset[key] = dataset[key].astype(np.float32)
             dataset[key] /= 255.0
