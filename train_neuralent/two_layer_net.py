@@ -22,7 +22,9 @@ class TwoLayerNet:
     def predict(self, x):
         """
         Args:
-            x (np.array): 
+            x (np.array):
+        Return:
+             
         """
         W1, W2 = self.params["W1"], self.params["W2"]
         b1, b2 = self.params["b1"], self.params["b2"]
@@ -44,8 +46,9 @@ class TwoLayerNet:
         Returns:
             误差函数 
         """
-        y = self.predict(x)
-        
+        y = self.predict(x) 
+        # y为100 x 10
+        # x为100 x 10
         return cross_entropy_error(y, t)
     
     def accuracy(self, x, t):
@@ -58,7 +61,7 @@ class TwoLayerNet:
             返回识别准确率
         """
         y = self.predict(x)
-        y = np.argmax(y, axis=1)
+        y = np.argmax(y, axis=1) # axis=1表示按照列进行方向进行压缩，列求和
         t = np.argmax(t, axis=1)
         
         accuracy = np.sum(y == t) / float(x.shape[0])
@@ -75,7 +78,6 @@ class TwoLayerNet:
 
         """
         loss_W = lambda W: self.loss(x, t)
-        
         grads = {}
         grads["W1"] = numerical_gradient(loss_W, self.params["W1"])
         grads["b1"] = numerical_gradient(loss_W, self.params["b1"])
