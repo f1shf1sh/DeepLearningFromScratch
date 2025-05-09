@@ -8,7 +8,7 @@ def numerical_diff(f, x):
     h = 1e-4
     return (f(x+h) - f(x-h)) / (2*h)
 
-def numerical_gradient(f, x):
+def _numerical_gradient_on_batch(f, x):
     """
     求函数f在点x处的梯度 grad = (∂f/∂x, ∂f/∂y, ...),
     ∂f/∂x = lim(h->0) {f(x+h) - f(x-h)} / 2*h
@@ -21,7 +21,7 @@ def numerical_gradient(f, x):
     """
     h = 1e-4
     grad = np.zeros_like(x)
-    for idx in range(x.shape[0]):
+    for idx in range(x.size):
         tmp_val = x[idx]
         x[idx] = tmp_val + h
         fx0 = f(x)
@@ -32,6 +32,17 @@ def numerical_gradient(f, x):
     
     return grad 
 
+def numerical_gradient(f, X):
+    
+    if X.ndim == 1: 
+        return _numerical_gradient_on_batch(f, X) 
+    else:
+        grad = np.zeros_like(X)
+        for idx, x in enumerate(X):
+            grad[idx] = _numerical_gradient_on_batch(f, x)
+        
+        return grad 
+        
 def gradient_descent(f, init_x, lr = 0.01, step_num = 100):
     """ 
     梯度下降法实现过程，函数实现以下公式

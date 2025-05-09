@@ -19,7 +19,7 @@ def train_network():
     network = TwoLayerNet(input_size=784, hidden_size=100, output_size=10)
     (train_img, train_label), (_, _) = load_mnist(normalize=True, flatten=True, one_hot_label=True)
     
-    iters_num = 1000
+    iters_num = 100
     train_size = train_img.shape[0]
     
     batch_size = 100
@@ -35,16 +35,17 @@ def train_network():
         
         for key in ("W1", "b1", "W2", "b2"):
             network.params[key] -= learning_rate * grad[key] 
-        
+
         loss = network.loss(x_batch, t_batch)
         loss_train_list.append(loss)
-    
+        print(loss)
+        
     plt.plot(loss_train_list)
     plt.title("Loss List")
     plt.xlabel("iters")
     plt.ylabel("loss value")
     plt.grid(True)
-    plt.savefig("iter_1000.png")
+    plt.savefig("iter_10000.png")
 
 if __name__ == "__main__":
     train_network()
