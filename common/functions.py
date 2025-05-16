@@ -36,8 +36,14 @@ def softmax(x):
     Returns:
         _type_: _description_
     """
+    if x.ndim == 2:
+        x = x.T
+        x = x - np.max(x, axis=0)
+        y = np.exp(x) / np.sum(np.exp(x), axis=0)
+        return y.T
+    
     c = np.max(x)
-    exp_a = np.exp(x -c)
+    exp_a = np.exp(x - c)
     sum_exp_a = np.sum(exp_a)
     
     return exp_a / sum_exp_a
